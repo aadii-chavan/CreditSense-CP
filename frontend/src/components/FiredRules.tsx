@@ -1,4 +1,5 @@
 import type { FiredRule } from "../types/score";
+import { Link } from "react-router-dom";
 import { muColor } from "../lib/format";
 
 interface Props {
@@ -16,7 +17,7 @@ export function FiredRules({ rules, limit = 4 }: Props) {
       <div className="rules-divider" />
       <div className="rules-head">
         <div className="section-label" style={{ marginBottom: 0 }}>Active rules</div>
-        <a className="rules-link" href="#">Edit rule base →</a>
+        <Link className="rules-link" to="/rules">Edit rule base →</Link>
       </div>
 
       {shown.length === 0 ? (

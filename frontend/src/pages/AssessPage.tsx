@@ -1,15 +1,15 @@
 import { useMemo, useState } from "react";
-import { AppHeader } from "./components/AppHeader";
-import { IdentityFields } from "./components/IdentityFields";
-import { AntecedentSlider } from "./components/AntecedentSlider";
-import { ScoreCard } from "./components/ScoreCard";
-import { AggregatedOutputChart } from "./components/AggregatedOutputChart";
-import { FiredRules } from "./components/FiredRules";
-import { EngineStatus } from "./components/EngineStatus";
-import { ErrorPanel } from "./components/ErrorPanel";
-import { useScore } from "./hooks/useScore";
-import { rupees } from "./lib/format";
-import type { Applicant } from "./types/score";
+import { AppHeader } from "../components/AppHeader";
+import { IdentityFields } from "../components/IdentityFields";
+import { AntecedentSlider } from "../components/AntecedentSlider";
+import { ScoreCard } from "../components/ScoreCard";
+import { AggregatedOutputChart } from "../components/AggregatedOutputChart";
+import { FiredRules } from "../components/FiredRules";
+import { EngineStatus } from "../components/EngineStatus";
+import { PageError } from "../components/PageState";
+import { useScore } from "../hooks/useScore";
+import { rupees } from "../lib/format";
+import type { Applicant } from "../types/score";
 
 const DEFAULT_APPLICANT: Applicant = {
   name: "Kavya Reddy",
@@ -42,7 +42,7 @@ export function AssessPage() {
 
   return (
     <div className="page">
-      <AppHeader savedLabel="Draft saved · 09:44" />
+      <AppHeader><span className="app-saved">Draft saved · 09:44</span></AppHeader>
 
       <main className="page-main">
         <div className="page-head">
@@ -137,7 +137,7 @@ export function AssessPage() {
               <EngineStatus status={status} engineVersion={data?.engine.version} />
 
               {status === "error" && !data ? (
-                <ErrorPanel message={error ?? "Unknown error."} onRetry={retry} />
+                <PageError title="Scoring engine unavailable" message={error ?? "Unknown error."} onRetry={retry} />
               ) : (
                 <div className={isStale ? "is-stale" : undefined}>
                   <ScoreCard data={data} />

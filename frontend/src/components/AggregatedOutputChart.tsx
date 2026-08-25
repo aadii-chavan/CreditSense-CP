@@ -3,6 +3,8 @@ import type { AggregatedOutput } from "../types/score";
 interface Props {
   aggregated?: AggregatedOutput;
   centroid?: number;
+  /** Hide the section label when the surrounding card already names the chart. */
+  showTitle?: boolean;
 }
 
 // Chart geometry, in the SVG's own viewBox units.
@@ -16,7 +18,7 @@ const PEAK_HEIGHT = 74;
  * The curve is drawn straight from the samples the engine returns — the
  * frontend does no membership math of its own.
  */
-export function AggregatedOutputChart({ aggregated, centroid }: Props) {
+export function AggregatedOutputChart({ aggregated, centroid, showTitle = true }: Props) {
   const [domainMin, domainMax] = aggregated?.domain ?? [0, 100];
   const span = domainMax - domainMin || 1;
   const toX = (value: number) => ((value - domainMin) / span) * WIDTH;
@@ -36,7 +38,9 @@ export function AggregatedOutputChart({ aggregated, centroid }: Props) {
 
   return (
     <div className="agg-block">
-      <div className="section-label">Aggregated output set · centroid defuzzification</div>
+      {showTitle && (
+        <div className="section-label">Aggregated output set · centroid defuzzification</div>
+      )}
       <svg
         viewBox={`0 0 ${WIDTH} 110`}
         preserveAspectRatio="none"

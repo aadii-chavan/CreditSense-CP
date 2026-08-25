@@ -1,16 +1,19 @@
+import type { ReactNode } from "react";
+import { NavLink } from "react-router-dom";
+
 const NAV = [
-  { label: "Dashboard", href: "#" },
-  { label: "Assess", href: "#", current: true },
-  { label: "Records", href: "#" },
-  { label: "Rule base", href: "#" },
+  { label: "Dashboard", to: "/" },
+  { label: "Assess", to: "/assess" },
+  { label: "Records", to: "/records" },
+  { label: "Rule base", to: "/rules" },
 ];
 
 interface Props {
-  /** Right-hand status line, e.g. "Draft saved · 09:44". */
-  savedLabel: string;
+  /** Page-specific controls shown to the left of the user block. */
+  children?: ReactNode;
 }
 
-export function AppHeader({ savedLabel }: Props) {
+export function AppHeader({ children }: Props) {
   return (
     <header className="app-header">
       <div className="app-brand">
@@ -23,18 +26,20 @@ export function AppHeader({ savedLabel }: Props) {
 
       <nav className="app-nav" aria-label="Primary">
         {NAV.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            aria-current={item.current ? "page" : undefined}
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.to === "/"}
+            aria-current={undefined}
+            className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
             {item.label}
-          </a>
+          </NavLink>
         ))}
       </nav>
 
       <div className="app-meta">
-        <span className="app-saved">{savedLabel}</span>
+        {children}
         <div className="app-user">
           <div className="app-avatar" aria-hidden="true">RV</div>
           <div className="app-user-text">
