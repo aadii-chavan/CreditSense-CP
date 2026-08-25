@@ -10,6 +10,8 @@ import { Pagination } from "../components/Pagination";
 import { useApi } from "../hooks/useApi";
 import { getRecords } from "../api/client";
 import { STATUS_LABEL, compact, fullWhen } from "../lib/format";
+import { stagger } from "../lib/motion";
+import { CountUp } from "../components/CountUp";
 import type {
   PeriodFilter,
   RecordsQuery,
@@ -112,19 +114,27 @@ export function RecordsPage() {
             <section className="stat-strip stat-strip-sm">
               <div className="stat-cell">
                 <div className="section-label">Filtered set</div>
-                <div className="stat-value stat-value-sm">{data ? compact(data.summary.filtered) : "—"}</div>
+                <div className="stat-value stat-value-sm">
+                  <CountUp value={data ? data.summary.filtered : null} grouped />
+                </div>
               </div>
               <div className="stat-cell">
                 <div className="section-label">Mean score</div>
-                <div className="stat-value stat-value-sm">{data ? data.summary.meanScore.toFixed(1) : "—"}</div>
+                <div className="stat-value stat-value-sm">
+                  <CountUp value={data ? data.summary.meanScore : null} decimals={1} />
+                </div>
               </div>
               <div className="stat-cell">
                 <div className="section-label">Under review</div>
-                <div className="stat-value stat-value-sm">{data ? data.summary.underReview : "—"}</div>
+                <div className="stat-value stat-value-sm">
+                  <CountUp value={data ? data.summary.underReview : null} />
+                </div>
               </div>
               <div className="stat-cell">
                 <div className="section-label">Scored on an older engine</div>
-                <div className="stat-value stat-value-sm">{data ? data.summary.rescoredAfterRuleEdit : "—"}</div>
+                <div className="stat-value stat-value-sm">
+                  <CountUp value={data ? data.summary.rescoredAfterRuleEdit : null} />
+                </div>
               </div>
             </section>
 
@@ -191,8 +201,12 @@ export function RecordsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.rows.map((row) => (
-                      <tr key={row.id}>
+                    {data.rows.map((row, i) => (
+                      <tr
+                        key={`${data.page}-${row.id}`}
+                        className="anim-row"
+                        style={stagger(i)}
+                      >
                         <td className="col-first">
                           <div className="row-name">{row.name}</div>
                           <div className="row-meta">{row.id} · {row.location}</div>

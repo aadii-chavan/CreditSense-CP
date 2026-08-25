@@ -9,6 +9,7 @@ import { EngineStatus } from "../components/EngineStatus";
 import { PageError } from "../components/PageState";
 import { useScore } from "../hooks/useScore";
 import { rupees } from "../lib/format";
+import { stagger } from "../lib/motion";
 import type { Applicant } from "../types/score";
 
 const DEFAULT_APPLICANT: Applicant = {
@@ -74,7 +75,7 @@ export function AssessPage() {
         </div>
 
         <section className="assess-grid">
-          <div className="assess-inputs">
+          <div className="assess-inputs anim-rise">
             <IdentityFields value={applicant} onChange={setApplicant} />
 
             <div className="rule-divider" />
@@ -85,6 +86,8 @@ export function AssessPage() {
             </p>
 
             <AntecedentSlider
+              className="anim-stagger"
+              style={stagger(0)}
               name="Monthly income"
               displayValue={rupees(income)}
               unit="/mo"
@@ -99,6 +102,8 @@ export function AssessPage() {
             />
 
             <AntecedentSlider
+              className="anim-stagger"
+              style={stagger(1)}
               name="Repayment history"
               displayValue={repaymentHistory}
               unit="% on time"
@@ -113,6 +118,8 @@ export function AssessPage() {
             />
 
             <AntecedentSlider
+              className="anim-stagger"
+              style={stagger(2)}
               name="Debt-to-income ratio"
               displayValue={dti}
               unit="%"
@@ -133,7 +140,7 @@ export function AssessPage() {
           </div>
 
           <div className="assess-output">
-            <div className="assess-output-sticky">
+            <div className="assess-output-sticky anim-rise">
               <EngineStatus status={status} engineVersion={data?.engine.version} />
 
               {status === "error" && !data ? (

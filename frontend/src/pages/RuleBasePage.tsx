@@ -13,6 +13,8 @@ import type {
   VariableKey,
 } from "../types/rules";
 import type { Consequent } from "../types/score";
+import { stagger } from "../lib/motion";
+import { CountUp } from "../components/CountUp";
 
 const CONSEQUENTS: Consequent[] = ["low", "moderate", "high"];
 const CONSEQUENT_LABEL: Record<Consequent, string> = { high: "High", moderate: "Moderate", low: "Low" };
@@ -172,8 +174,8 @@ export function RuleBasePage() {
                 <span className="block-sub">Triangular sets · type a peak to stage a change</span>
               </div>
               <div className="mf-grid">
-                {data.antecedents.map((variable) => (
-                  <div key={variable.key} className="mf-cell">
+                {data.antecedents.map((variable, i) => (
+                  <div key={variable.key} className="mf-cell anim-stagger" style={stagger(i)}>
                     <div className="mf-head">
                       <div className="mf-name">{variable.label}</div>
                       <div className="mf-range">
@@ -256,10 +258,14 @@ export function RuleBasePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {visibleRules.map((rule) => {
+                    {visibleRules.map((rule, i) => {
                       const edited = editedRuleIds.has(rule.id);
                       return (
-                        <tr key={rule.id} className={edited ? "is-edited-row" : undefined}>
+                        <tr
+                          key={rule.id}
+                          className={`anim-row${edited ? " is-edited-row" : ""}`}
+                          style={stagger(i)}
+                        >
                           <td className="col-first mono">{rule.id}</td>
                           <td>{rule.text}</td>
                           <td>
@@ -344,7 +350,7 @@ export function RuleBasePage() {
                         </ul>
 
                         {dryRun ? (
-                          <>
+                          <div className="impact-reveal">
                             <p className="explainer-body">
                               Replayed against {dryRun.recordsEvaluated} stored records. Dashed
                               outline is the current distribution; bars are the staged one.
@@ -357,7 +363,7 @@ export function RuleBasePage() {
                                   <div
                                     key={i}
                                     className={`impact-bar${changed ? " is-changed" : ""}`}
-                                    style={{ height: `${(pct / peak) * 100}%` }}
+                                    style={{ ...stagger(i), height: `${(pct / peak) * 100}%` }}
                                     title={`${i * 10}–${i * 10 + 10}: ${pct}% (was ${dryRun.currentBins[i]}%)`}
                                   />
                                 );
@@ -385,18 +391,21 @@ export function RuleBasePage() {
                               <div className="impact-stat">
                                 <div className="tier-share-label">Mean shift</div>
                                 <div className="impact-value">
-                                  {dryRun.meanShift > 0 ? "+" : ""}{dryRun.meanShift.toFixed(1)}
+                                  {dryRun.meanShift > 0 ? "+" : ""}
+                                  <CountUp value={dryRun.meanShift} decimals={1} />
                                 </div>
                               </div>
                               <div className="impact-stat">
                                 <div className="tier-share-label">Tier changes</div>
-                                <div className="impact-value is-accent">{dryRun.tierChanges}</div>
+                                <div className="impact-value is-accent">
+                                  <CountUp value={dryRun.tierChanges} />
+                                </div>
                               </div>
                             </div>
                             <div className="block-sub" style={{ marginTop: 12 }}>
                               {dryRun.recordsAffected} of {dryRun.recordsEvaluated} records change score.
                             </div>
-                          </>
+                          </div>
                         ) : (
                           <p className="explainer-body">
                             Dry-run the staged base to see how the distribution would move before

@@ -23,16 +23,17 @@ export function AggregatedOutputChart({ aggregated, centroid, showTitle = true }
   const span = domainMax - domainMin || 1;
   const toX = (value: number) => ((value - domainMin) / span) * WIDTH;
 
-  const points = aggregated
-    ? [
-        `0,${BASELINE}`,
-        ...aggregated.x.map(
+  // The curve itself, without the baseline corners that close the fill — the
+  // stroke is drawn as its own polyline so it can animate in on first paint.
+  const curve = aggregated
+    ? aggregated.x
+        .map(
           (x, i) =>
             `${toX(x).toFixed(1)},${(BASELINE - (aggregated.mu[i] ?? 0) * PEAK_HEIGHT).toFixed(1)}`,
-        ),
-        `${WIDTH},${BASELINE}`,
-      ].join(" ")
+        )
+        .join(" ")
     : `0,${BASELINE} ${WIDTH},${BASELINE}`;
+  const points = aggregated ? `0,${BASELINE} ${curve} ${WIDTH},${BASELINE}` : curve;
 
   const centroidX = centroid === undefined ? null : toX(centroid);
 
@@ -63,18 +64,33 @@ export function AggregatedOutputChart({ aggregated, centroid, showTitle = true }
           strokeDasharray="2 3" vectorEffect="non-scaling-stroke"
         />
         <polygon
+          className="chart-fill"
           points={points}
           fill="color-mix(in srgb, #ec3013 18%, transparent)"
+          stroke="none"
+        />
+        <polyline
+          className="chart-draw"
+          points={curve}
+          fill="none"
           stroke="var(--color-accent)" strokeWidth="2" vectorEffect="non-scaling-stroke"
         />
         {centroidX !== null && (
-          <>
+          <g className="chart-marker">
+            {/* Translated rather than repositioned, so the centroid glides. */}
             <line
-              x1={centroidX} y1="0" x2={centroidX} y2={BASELINE}
+              className="centroid-line"
+              x1="0" y1="0" x2="0" y2={BASELINE}
+              style={{ transform: `translateX(${centroidX}px)` }}
               stroke="var(--color-text)" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
             />
-            <circle cx={centroidX} cy={BASELINE} r="4" fill="var(--color-text)" />
-          </>
+            <circle
+              className="centroid-dot"
+              cx="0" cy={BASELINE} r="4"
+              style={{ transform: `translateX(${centroidX}px)` }}
+              fill="var(--color-text)"
+            />
+          </g>
         )}
       </svg>
       <div className="agg-scale">

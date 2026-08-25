@@ -1,5 +1,6 @@
 import type { ScoreResponse } from "../types/score";
 import { tierPalette } from "../lib/format";
+import { useCountUp } from "../hooks/useCountUp";
 
 interface Props {
   data: ScoreResponse | null;
@@ -9,13 +10,15 @@ interface Props {
 export function ScoreCard({ data }: Props) {
   const palette = tierPalette(data?.tier ?? "high_risk");
   const score = data?.score ?? 0;
+  // The headline eases to each new score rather than snapping mid-drag.
+  const shown = useCountUp(data ? data.score : null) ?? 0;
 
   return (
     <div className="score-card">
       <div className="score-row">
         <div>
           <div className="score-label">Creditworthiness</div>
-          <div className="score-value">{data ? score.toFixed(1) : "—"}</div>
+          <div className="score-value">{data ? shown.toFixed(1) : "—"}</div>
         </div>
         <div className="score-side">
           <span

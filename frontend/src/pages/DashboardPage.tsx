@@ -11,6 +11,8 @@ import { Sparkline } from "../components/Sparkline";
 import { useApi } from "../hooks/useApi";
 import { getDashboard } from "../api/client";
 import { compact, muColor, shortWhen } from "../lib/format";
+import { stagger } from "../lib/motion";
+import { CountUp } from "../components/CountUp";
 import type { TierFilter } from "../types/records";
 
 const TIER_OPTIONS: { value: TierFilter; label: string }[] = [
@@ -88,27 +90,33 @@ export function DashboardPage() {
         ) : (
           <div className={isStale ? "is-stale" : undefined}>
             <section className="stat-strip">
-              <div className="stat-cell">
+              <div className="stat-cell anim-stagger" style={stagger(0)}>
                 <div className="section-label">Applications scored</div>
-                <div className="stat-value">{compact(data.stats.scored.total)}</div>
+                <div className="stat-value">
+                  <CountUp value={data.stats.scored.total} grouped />
+                </div>
                 <div className="stat-note">
                   {compact(data.stats.scored.thisQuarter)} this quarter ·{" "}
                   {data.stats.scored.rejectedOutright} rejected outright
                 </div>
               </div>
 
-              <div className="stat-cell">
+              <div className="stat-cell anim-stagger" style={stagger(1)}>
                 <div className="section-label">Mean score</div>
                 <div className="stat-row">
-                  <div className="stat-value">{data.stats.meanScore.value.toFixed(1)}</div>
+                  <div className="stat-value">
+                    <CountUp value={data.stats.meanScore.value} decimals={1} />
+                  </div>
                   <div className="stat-delta">▲ {data.stats.meanScore.delta.toFixed(1)}</div>
                 </div>
                 <Sparkline values={data.stats.meanScore.trend} />
               </div>
 
-              <div className="stat-cell">
+              <div className="stat-cell anim-stagger" style={stagger(2)}>
                 <div className="section-label">Scored this week</div>
-                <div className="stat-value">{data.stats.thisWeek.total}</div>
+                <div className="stat-value">
+                  <CountUp value={data.stats.thisWeek.total} />
+                </div>
                 <div className="minibars">
                   {data.stats.thisWeek.daily.map((value, i) => {
                     const peak = Math.max(...data.stats.thisWeek.daily);
@@ -119,6 +127,7 @@ export function DashboardPage() {
                         key={i}
                         className="minibar"
                         style={{
+                          ...stagger(i),
                           height: `${(value / peak) * 100}%`,
                           background: isPeak
                             ? "var(--color-text)"
@@ -132,10 +141,12 @@ export function DashboardPage() {
                 </div>
               </div>
 
-              <div className="stat-cell">
+              <div className="stat-cell anim-stagger" style={stagger(3)}>
                 <div className="section-label">In the grey band</div>
                 <div className="stat-row">
-                  <div className="stat-value">{data.stats.greyBand.count}</div>
+                  <div className="stat-value">
+                    <CountUp value={data.stats.greyBand.count} />
+                  </div>
                   <div className="stat-of">of {data.stats.greyBand.of}</div>
                 </div>
                 <div className="stat-note">
@@ -174,8 +185,8 @@ export function DashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {recent.map((row) => (
-                      <tr key={row.id}>
+                    {recent.map((row, i) => (
+                      <tr key={row.id} className="anim-row" style={stagger(i)}>
                         <td className="col-first">
                           <div className="row-name">{row.name}</div>
                           <div className="row-meta">{row.id} · {row.location}</div>
@@ -233,7 +244,7 @@ export function DashboardPage() {
                         <div
                           key={bin.from}
                           className={`histogram-bar${isModal ? " is-modal" : ""}`}
-                          style={{ height: `${(bin.pct / peak) * 100}%` }}
+                          style={{ ...stagger(bin.from / 10), height: `${(bin.pct / peak) * 100}%` }}
                           title={`${bin.from}–${bin.to}: ${bin.pct}%${isModal ? " — modal band" : ""}`}
                         />
                       );
@@ -243,7 +254,7 @@ export function DashboardPage() {
                     <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
                   </div>
 
-                  <div className="tier-share">
+                  <div className="tier-share anim-rise">
                     <div className="tier-share-cell">
                       <div className="tier-share-label">Low risk</div>
                       <div className="tier-share-value">{data.distribution.tierShare.low_risk}%</div>
@@ -260,7 +271,7 @@ export function DashboardPage() {
                 </div>
 
                 {data.explainer && (
-                  <div className="explainer-card">
+                  <div className="explainer-card anim-rise">
                     <div className="explainer-kicker">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="2">
                         <path d="M3 17l6-6 4 4 8-8" />
@@ -285,8 +296,8 @@ export function DashboardPage() {
                       Rules fired · {data.explainer.score.firedCount} of {data.explainer.score.ruleCount}
                     </div>
                     <div className="rules-list">
-                      {data.explainer.score.firedRules.slice(0, 3).map((rule) => (
-                        <div key={rule.id}>
+                      {data.explainer.score.firedRules.slice(0, 3).map((rule, i) => (
+                        <div key={rule.id} className="anim-stagger" style={stagger(i)}>
                           <div className="rule-row">
                             <span>IF {rule.text}</span>
                             <span className="rule-mu">{rule.mu.toFixed(2)}</span>
@@ -304,7 +315,7 @@ export function DashboardPage() {
                     <div className="explainer-foot">
                       <span className="section-label" style={{ marginBottom: 0 }}>Centroid</span>
                       <span className="explainer-centroid">
-                        {data.explainer.score.centroid.toFixed(1)}
+                        <CountUp value={data.explainer.score.centroid} decimals={1} />
                       </span>
                       <Link className="rules-link" to="/records" style={{ marginLeft: "auto" }}>
                         Full trace →

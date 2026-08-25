@@ -25,8 +25,13 @@ export function Sparkline({ values }: Props) {
       role="img"
       aria-label="Mean score trend"
     >
-      <polyline points={points} fill="none" stroke="var(--color-text)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-      <circle cx={last[0]} cy={last[1]} r="3" fill="var(--color-accent)" />
+      <polyline
+        className="chart-draw"
+        style={{ "--draw-length": 400 } as React.CSSProperties}
+        points={points}
+        fill="none" stroke="var(--color-text)" strokeWidth="1.5" vectorEffect="non-scaling-stroke"
+      />
+      <circle className="chart-marker" cx={last[0]} cy={last[1]} r="3" fill="var(--color-accent)" />
     </svg>
   );
 }

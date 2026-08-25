@@ -1,6 +1,7 @@
 import type { FiredRule } from "../types/score";
 import { Link } from "react-router-dom";
 import { muColor } from "../lib/format";
+import { stagger } from "../lib/motion";
 
 interface Props {
   rules?: FiredRule[];
@@ -26,8 +27,8 @@ export function FiredRules({ rules, limit = 4 }: Props) {
         </p>
       ) : (
         <div className="rules-list">
-          {shown.map((rule) => (
-            <div key={rule.id}>
+          {shown.map((rule, i) => (
+            <div key={rule.id} className="anim-stagger" style={stagger(i)}>
               <div className="rule-row">
                 <span>{rule.text}</span>
                 <span className="rule-mu">{rule.mu.toFixed(2)}</span>
