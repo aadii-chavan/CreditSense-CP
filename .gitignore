@@ -1,0 +1,80 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# Packaging / build
+build/
+dist/
+sdist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# ---------- Virtual environments (conda / miniconda / venv) ----------
+# Anaconda/Miniconda envs created in-tree, e.g. `conda create -p ./env`
+env/
+envs/
+.env/
+.envs/
+venv/
+.venv/
+ENV/
+conda-env/
+conda-meta/
+.conda/
+*.conda
+# pip freeze of a conda env, if dumped locally
+environment.local.yml
+
+# ---------- Node / frontend ----------
+node_modules/
+frontend/dist/
+.vite/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- Secrets / local config ----------
+.env
+.env.*
+!.env.example
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
+
+# ---------- OS ----------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
