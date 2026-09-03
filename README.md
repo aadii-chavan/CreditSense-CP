@@ -1,50 +1,43 @@
 <div align="center">
 
+<br/>
+
 # CreditSense
 
-### A Mamdani fuzzy inference system for micro-loan credit scoring
+**A Mamdani fuzzy inference system for micro-loan credit scoring**
 
-*Three linguistic antecedents. Ten rules. One centroid.*
-*Every number on screen comes from the engine — nothing is invented in the UI.*
-
-<br/>
-
-[![Python](https://img.shields.io/badge/python-3.10-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/fastapi-0.115-%23009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Pydantic](https://img.shields.io/badge/pydantic-2.10-%23E92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
-<br/>
-[![React](https://img.shields.io/badge/react-18.3-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/typescript-5.6-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/vite-5.4-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+Three linguistic antecedents. Ten rules. One centroid.<br/>
+Every number on screen comes from the engine — nothing is invented in the UI.
 
 <br/>
 
-![Status](https://img.shields.io/badge/status-complete-brightgreen?style=flat-square)
-![Engine](https://img.shields.io/badge/engine-v1.2-7C3AED?style=flat-square)
-![Rules](https://img.shields.io/badge/rules-10%20over%2027%20combinations-blue?style=flat-square)
-![Tests](https://img.shields.io/badge/tests-pytest-0A9EDC?style=flat-square)
-![Course](https://img.shields.io/badge/soft%20computing-course%20project-orange?style=flat-square)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=0D1117" alt="Python 3.10" />
+  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=0D1117" alt="FastAPI 0.115" />
+  <img src="https://img.shields.io/badge/Pydantic-2.10-E92063?style=for-the-badge&logo=pydantic&logoColor=white&labelColor=0D1117" alt="Pydantic 2.10" />
+  <img src="https://img.shields.io/badge/Pytest-8.3-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white&labelColor=0D1117" alt="Pytest 8.3" />
+  <br/>
+  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=white&labelColor=0D1117" alt="React 18.3" />
+  <img src="https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=0D1117" alt="TypeScript 5.6" />
+  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white&labelColor=0D1117" alt="Vite 5.4" />
+  <img src="https://img.shields.io/badge/Conda-Miniconda-44A833?style=for-the-badge&logo=anaconda&logoColor=white&labelColor=0D1117" alt="Miniconda" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/status-complete-2EA043?style=flat-square&labelColor=0D1117" alt="Status: complete" />
+  <img src="https://img.shields.io/badge/engine-v1.2-7C3AED?style=flat-square&labelColor=0D1117" alt="Engine v1.2" />
+  <img src="https://img.shields.io/badge/rule%20base-10%20rules%20%2F%2027%20combinations-2F81F7?style=flat-square&labelColor=0D1117" alt="10 rules over 27 combinations" />
+  <img src="https://img.shields.io/badge/endpoints-5-8957E5?style=flat-square&labelColor=0D1117" alt="5 endpoints" />
+  <img src="https://img.shields.io/badge/defuzzification-centroid-D29922?style=flat-square&labelColor=0D1117" alt="Centroid defuzzification" />
+</p>
+
+<br/>
 
 </div>
 
 ---
 
-## 📑 Contents
-
-- [Overview](#-overview)
-- [Project structure](#-project-structure)
-- [Getting started](#-getting-started)
-- [Pages](#-pages)
-- [Architecture](#-architecture)
-- [API contract](#-api-contract)
-- [Engine specification](#-engine-specification)
-- [The rule base](#-the-rule-base)
-- [Acceptance table](#-acceptance-table)
-- [Author](#-author)
-
----
-
-## 🔍 Overview
+## Overview
 
 CreditSense scores micro-loan applicants with a **Mamdani fuzzy inference
 system**. Three antecedents — monthly income, repayment history and
@@ -53,15 +46,15 @@ ten-rule base with min implication and max aggregation, and defuzzified by
 centroid into a creditworthiness score on `[0, 100]`.
 
 What makes the project more than a calculator is that the **whole inference is
-visible**. The UI does not just show a score; it shows the membership degrees
-that produced it, which rules fired and at what strength, the aggregated output
-curve, and where the centroid landed on it.
+visible**. The interface does not just show a score; it shows the membership
+degrees that produced it, which rules fired and at what strength, the
+aggregated output curve, and where the centroid landed on it.
 
-> **Current state:** frontend and backend both complete.
+Frontend and backend are both complete.
 
 ---
 
-## 📂 Project structure
+## Project structure
 
 ```
 frontend/                  React + TypeScript + Vite
@@ -83,9 +76,9 @@ backend/                   FastAPI + Pydantic — see backend/README.md
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
-Two processes. **Backend first:**
+Two processes. Backend first — Python is managed with **miniconda**:
 
 ```bash
 conda create -n creditsense python=3.10 -y
@@ -96,9 +89,10 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-Interactive API docs land at <http://127.0.0.1:8000/docs>.
+Interactive API docs land at <http://127.0.0.1:8000/docs>, and a health probe
+at <http://127.0.0.1:8000/api/health>.
 
-**Then the frontend:**
+Then the frontend:
 
 ```bash
 cd frontend
@@ -108,8 +102,8 @@ npm run dev        # http://localhost:5173
 
 ### Configuration
 
-`frontend/.env` controls where data comes from — copy `.env.example` to get
-started.
+Copy `frontend/.env.example` to `frontend/.env`. It controls where data comes
+from:
 
 | `VITE_USE_MOCK` | Behaviour |
 | :-------------- | :-------- |
@@ -127,7 +121,7 @@ cd backend
 pytest
 ```
 
-### 💡 The mocks are an oracle, not dead code
+### The mocks are an oracle, not dead code
 
 The backend's record store reproduces the frontend mock's seeded dataset **bit
 for bit** — same 64 records, same scores, tiers, statuses and timestamps.
@@ -136,7 +130,7 @@ implementations directly diffable.
 
 ---
 
-## 📄 Pages
+## Pages
 
 | Route | Page | What it does |
 | :--- | :--- | :--- |
@@ -147,7 +141,7 @@ implementations directly diffable.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 No component computes fuzzy logic and no component imports a mock. Every page
 goes through `src/api/client.ts`; memberships, fired rules, output curves and
@@ -160,13 +154,14 @@ while the next is fetched; failures show a retry rather than invented numbers.
 
 ---
 
-## 🔌 API contract
+## API contract
 
 `src/types/*.ts` is the authoritative version of all of this; the Pydantic
-models mirror it field-for-field.
+models mirror it field-for-field. All five endpoints are implemented in
+`backend/app/api/routes.py`.
 
 <details open>
-<summary><b><code>POST /api/score</code></b> — score one applicant</summary>
+<summary><b><code>POST /api/score</code></b> &nbsp;— score one applicant</summary>
 
 <br/>
 
@@ -203,7 +198,7 @@ models mirror it field-for-field.
 </details>
 
 <details>
-<summary><b><code>GET /api/dashboard</code></b> — portfolio overview</summary>
+<summary><b><code>GET /api/dashboard</code></b> &nbsp;— portfolio overview</summary>
 
 <br/>
 
@@ -215,19 +210,19 @@ See `src/types/dashboard.ts`.
 </details>
 
 <details>
-<summary><b><code>GET /api/records</code></b> — the assessment log</summary>
+<summary><b><code>GET /api/records</code></b> &nbsp;— the assessment log</summary>
 
 <br/>
 
-Query: `tier`, `period` (`7d` | `30d` | `quarter` | `all`), `status`,
-`engineVersion`, `search`, `page`, `pageSize`. Returns the page of rows plus
-`filtered` / `total` / `pageCount` and a summary block.
+Query parameters: `tier`, `period` (`7d` | `30d` | `quarter` | `all`),
+`status`, `engineVersion`, `search`, `page`, `pageSize`. Returns the page of
+rows plus `filtered` / `total` / `pageCount` and a summary block.
 See `src/types/records.ts`.
 
 </details>
 
 <details>
-<summary><b><code>GET /api/rules</code></b> — variables and rule base</summary>
+<summary><b><code>GET /api/rules</code></b> &nbsp;— variables and rule base</summary>
 
 <br/>
 
@@ -238,28 +233,25 @@ the version history. See `src/types/rules.ts`.
 </details>
 
 <details>
-<summary><b><code>POST /api/rules/dry-run</code></b> — replay staged edits</summary>
+<summary><b><code>POST /api/rules/dry-run</code></b> &nbsp;— replay staged edits</summary>
 
 <br/>
 
 Takes a list of staged edits (`peak`, `consequent`, `active`), replays the
 stored records through the staged base and returns records affected, mean
-shift, tier changes and the two distributions. **Nothing is persisted.**
+shift, tier changes and the two distributions. Nothing is persisted.
 
 </details>
-
-All five are implemented in `backend/app/api/routes.py`, with interactive docs
-at <http://127.0.0.1:8000/docs>.
 
 ### Not yet specced
 
 `Commit score` on Assess and `Publish` on Rule base are deliberately inert —
-they need `POST /api/assessments` and `POST /api/rules/publish`, which we
-haven't designed. Both buttons are disabled until there is something to send.
+they need `POST /api/assessments` and `POST /api/rules/publish`, which have not
+been designed. Both buttons are disabled until there is something to send.
 
 ---
 
-## ⚙️ Engine specification
+## Engine specification
 
 Triangular membership functions `(a, b, c)`, **min** implication, **max**
 aggregation, **centroid** defuzzification sampled at 101 points over `[0, 100]`.
@@ -271,33 +263,29 @@ aggregation, **centroid** defuzzification sampled at 101 points over `[0, 100]`.
 | **DTI** (%) | low `(-1, 0, 30)` · medium `(20, 45, 70)` · high `(55, 100, 101)` |
 | **Creditworthiness** *(output)* | low `(-1, 0, 45)` · moderate `(25, 50, 75)` · high `(55, 100, 101)` |
 
-**Tier bands:** `< 45` high risk · `45–65` moderate · `≥ 65` low risk.
-Rules fire above ε = 0.01. Firing strength is `weight × min(antecedent degrees)`.
+Tier bands are `< 45` high risk, `45–65` moderate, `≥ 65` low risk. Rules fire
+above ε = 0.01, and firing strength is `weight × min(antecedent degrees)`.
 
----
+### The rule base
 
-## 📋 The rule base
-
-Ten rules over a 27-combination antecedent space. **R-22** and **R-25** have a
+Ten rules over a 27-combination antecedent space. `R-22` and `R-25` have a
 single clause each, so they deliberately cover a whole slice of that space —
 which is why one rule repeats across a row of the matrix.
 
 | Rule | Antecedent | Consequent |
 | :--- | :--- | :--- |
-| `R-01` | income high ∧ repayment strong | 🟢 high |
-| `R-04` | income moderate ∧ repayment strong | 🟢 high |
-| `R-07` | DTI low ∧ repayment strong | 🟢 high |
-| `R-09` | income high ∧ repayment fair | 🟡 moderate |
-| `R-12` | income moderate ∧ repayment fair | 🟡 moderate |
-| `R-15` | DTI medium ∧ repayment fair | 🟡 moderate |
-| `R-18` | income low ∧ repayment strong | 🟡 moderate |
-| `R-19` | income low ∧ repayment fair | 🔴 low |
-| `R-22` | DTI high | 🔴 low |
-| `R-25` | repayment weak | 🔴 low |
+| `R-01` | income high ∧ repayment strong | High |
+| `R-04` | income moderate ∧ repayment strong | High |
+| `R-07` | DTI low ∧ repayment strong | High |
+| `R-09` | income high ∧ repayment fair | Moderate |
+| `R-12` | income moderate ∧ repayment fair | Moderate |
+| `R-15` | DTI medium ∧ repayment fair | Moderate |
+| `R-18` | income low ∧ repayment strong | Moderate |
+| `R-19` | income low ∧ repayment fair | Low |
+| `R-22` | DTI high | Low |
+| `R-25` | repayment weak | Low |
 
----
-
-## ✅ Acceptance table
+### Acceptance table
 
 Reference values the Python engine reproduces, verified against both the design
 prototype and the mock:
@@ -317,49 +305,63 @@ edge.
 
 ---
 
-## 👤 Author
-
 <div align="center">
 
+<br/>
+
+### Author
+
+<br/>
+
+[![aadii-chavan](https://img.shields.io/badge/aadii--chavan-7C3AED?style=for-the-badge&logo=github&logoColor=white&labelColor=0D1117)](https://github.com/aadii-chavan)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=google-chrome&logoColor=white&labelColor=0D1117)](https://your-portfolio.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0D1117)](https://www.linkedin.com/in/aadii-chavan)
+[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white&labelColor=0D1117)](https://x.com/aadii_chavan)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0D1117)](mailto:workwithaadichavan@gmail.com)
+
+<br/>
+
+### Tech Stack
+
+<p align="center">
+  <sub><b>LANGUAGES</b></sub>
   <br/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=0D1117" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=0D1117" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=0D1117" alt="Python" />
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white&labelColor=0D1117" alt="C++" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=0D1117" alt="MySQL" />
+</p>
+
+<p align="center">
+  <sub><b>FRONTEND</b></sub>
   <br/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black&labelColor=0D1117" alt="React" />
+  <img src="https://img.shields.io/badge/Framer%20Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white&labelColor=0D1117" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white&labelColor=0D1117" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white&labelColor=0D1117" alt="Vite" />
+</p>
 
-  [![aadii-chavan](https://img.shields.io/badge/aadii--chavan-7C3AED?style=for-the-badge&logo=github&logoColor=white)](https://github.com/aadii-chavan)
-  [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=google-chrome&logoColor=white)](https://your-portfolio.com)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aadii-chavan)
-  [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/aadii_chavan)
-  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:workwithaadichavan@gmail.com)
+<p align="center">
+  <sub><b>BACKEND &amp; AI</b></sub>
+  <br/>
+  <img src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=0D1117" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white&labelColor=0D1117" alt="Express" />
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=0D1117" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white&labelColor=0D1117" alt="OpenAI" />
+</p>
 
-  ---
+<p align="center">
+  <sub><b>TOOLING</b></sub>
+  <br/>
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white&labelColor=0D1117" alt="Git" />
+  <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white&labelColor=0D1117" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/Conda-44A833?style=for-the-badge&logo=anaconda&logoColor=white&labelColor=0D1117" alt="Conda" />
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white&labelColor=0D1117" alt="Postman" />
+</p>
 
-  ### 🛠️ Tech Stack
+<br/>
 
-  <p align="center">
-    <!-- Languages -->
-    <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
-    <img src="https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black" />
-    <img src="https://img.shields.io/badge/python-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white" />
-    <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
-    <img src="https://img.shields.io/badge/mysql-%234479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" />
-    <br/>
-    <!-- Frontend -->
-    <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
-    <img src="https://img.shields.io/badge/framer--motion-black?style=for-the-badge&logo=framer&logoColor=white" />
-    <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-    <br/>
-    <!-- Backend & AI -->
-    <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" />
-    <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" />
-    <img src="https://img.shields.io/badge/fastapi-%23005571.svg?style=for-the-badge&logo=fastapi&logoColor=white" />
-    <img src="https://img.shields.io/badge/AI-%23000000.svg?style=for-the-badge&logo=openai&logoColor=white" />
-    <br/>
-    <!-- Tools -->
-    <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" />
-    <img src="https://img.shields.io/badge/github--actions-%232088FF.svg?style=for-the-badge&logo=github-actions&logoColor=white" />
-  </p>
-
-  ---
-
-  <sub>Soft Computing — Course Project</sub>
+<sub>Soft Computing — Course Project</sub>
 
 </div>
